@@ -18,7 +18,7 @@
     <arg name="scale_factor"/>
     
     # negate the joint movement direction
-    <arg name="negate_joint_movement" default="false"/>
+    <arg name="negate_joint_movement" default="true"/>
     
     <arg name="output_material" default="plastic"/>
 
