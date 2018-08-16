@@ -649,6 +649,8 @@ Urdf2GraspIt::ConversionResultPtr Urdf2GraspIt::preConvert(const ConversionParam
     // scale up all dh parameters to match the scale factor,
     // and also all link/collision/intertial transforms given in the URDF
 
+    /* // for local purposes, we just leave out the DH scaling (it's in meters already) and */
+    /* // therefore use the */
     if (!isDHScaled)
     {
         scaleParams(dh_parameters, getScaleFactor());
@@ -690,7 +692,19 @@ Urdf2GraspIt::ConversionResultPtr Urdf2GraspIt::postConvert(const ConversionPara
         return result;
     }
 
-    if (!urdf2graspit::convertGraspItMeshes(*trav, param->rootLinkName, getScaleFactor(),
+    char* envGlobalModelScale = std::getenv("URDF_CUSTOM_SCALE");
+    int envGlobalModelScaleLen = std::strlen(envGlobalModelScale);
+    float priorModelScale=1.0;
+    if (envGlobalModelScaleLen > 0) {
+        ROS_INFO("getting global model scale from environment");
+        priorModelScale=std::strtof(envGlobalModelScale, NULL);
+    }
+    else {
+        ROS_INFO("no global model scale in the environment...");
+    }
+    float meshConversionScale = getScaleFactor()*priorModelScale;
+    /* std::string info = "global mode scale: " */ 
+    if (!urdf2graspit::convertGraspItMeshes(*trav, param->rootLinkName, meshConversionScale,
         param->material,
         OUTPUT_EXTENSION,
         param->addVisualTransform, result->meshXMLDesc))

@@ -21,7 +21,7 @@
 
 // epsilon for absolute values
 // measured in units of the world
-#define DH_ZERO_EPSILON 1e-05
+#define DH_ZERO_EPSILON 1e-06
 
 // epsilon for a dot product to be considered
 // a zero angle
