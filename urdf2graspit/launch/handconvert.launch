@@ -1,0 +1,32 @@
+
+<launch>
+    # the input urdf file
+    <arg name="urdf_file" />
+    
+    # the directory onto which to write the output files
+    <arg name="output_directory"/>
+
+    <arg name="hand_root_link" default="clash_hand__body"/>
+    <arg name="finger_joint_names" default="clash_hand__thumb_body_base clash_hand__left_body_proximal clash_hand__right_body_proximal"/>
+    <arg name="scale_factor" default="1000"/>
+    <arg name="visual_corr_axis_x" default="1"/>
+    <arg name="visual_corr_axis_y" default="0"/>
+    <arg name="visual_corr_axis_z" default="0"/>
+    <arg name="visual_corr_axis_angle" default="90"/>
+
+    <arg name="output_material" default="plastic"/>
+    
+    <include file="$(find urdf2graspit)/launch/urdf2graspit.launch">
+        <arg name="visual_corr_axis_x" value="$(arg visual_corr_axis_x)"/>
+        <arg name="visual_corr_axis_y" value="$(arg visual_corr_axis_y)"/>
+        <arg name="visual_corr_axis_z" value="$(arg visual_corr_axis_z)"/>
+        <arg name="visual_corr_axis_angle" value="$(arg visual_corr_axis_angle)"/>
+        <arg name="urdf_file" value="$(arg urdf_file)"/>
+        <arg name="output_directory" value="$(arg output_directory)"/>
+        <arg name="hand_root_link" value="$(arg hand_root_link)"/>
+        <arg name="finger_joint_names" value="$(arg finger_joint_names)"/>
+        <arg name="scale_factor" value="$(arg scale_factor)"/>
+        <arg name="output_material" value="$(arg output_material)"/>
+        <arg name="negate_joint_movement" value="false"/>
+    </include>
+</launch>

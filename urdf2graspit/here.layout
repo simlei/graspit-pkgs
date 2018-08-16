@@ -1,0 +1,15 @@
+convert() {
+    local handconvert="$(getmod -n handconvert)"
+    (cd "$handconvert"; hereshell; convertToGraspit;)
+}
+convertAndShow() {
+    local handconvert="$(getmod -n handconvert)"
+    (cd "$handconvert"; hereshell; convertToGraspit; installGraspit; launchGraspit)
+}
+rebuild() {
+    local catkin="$(getmod -n catkin_ws)"
+    withros catkin build urdf2graspit
+}
+testgitversion() {
+    rebuild; convertAndShow;
+}
